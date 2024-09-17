@@ -5,14 +5,10 @@ import {
   useState,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 import { UserChatContextType } from "../types/type.contexts";
-import {
-  ContactSelected,
-  LatestMessage,
-  UserChatData,
-  UserIdKey,
-} from "../types/type.common";
+import { ContactSelected, UserChatData, UserIdKey } from "../types/type.common";
 import {
   deleteMessageFromDB,
   addMessageToDB,
@@ -29,9 +25,10 @@ export const UserChatProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const savedItems = localStorage.getItem("userChat");
     return savedItems ? JSON.parse(savedItems) : USER_CHAT_DATA;
   });
-  const [latestChatData, setLastChatData] = useState<LatestMessage>(
-    getLatestMessagefromDB(userChatData)
-  );
+  const latestChatData = useMemo(() => {
+    return getLatestMessagefromDB(userChatData);
+  }, [userChatData]);
+
   function addMessage(message: string, contactInfo: ContactSelected) {
     if (contactInfo != null) {
       const newData = addMessageToDB(userChatData, contactInfo.id, message);
@@ -67,18 +64,17 @@ export const UserChatProvider: FC<{ children: ReactNode }> = ({ children }) => {
   }
   useEffect(() => {
     localStorage.setItem("userChat", JSON.stringify(userChatData));
-    setLastChatData(() => getLatestMessagefromDB(userChatData));
   }, [userChatData]);
 
   return (
     <UserChatContext.Provider
       value={{
         userChatData,
+        latestChatData,
         addMessage,
+        editMessage,
         deleteMessage,
         deleteChat,
-        editMessage,
-        latestChatData,
       }}
     >
       {children}
@@ -88,7 +84,9 @@ export const UserChatProvider: FC<{ children: ReactNode }> = ({ children }) => {
 export const useChatDataContext = () => {
   const context = useContext(UserChatContext);
   if (context === undefined) {
-    throw new Error("error");
+    throw new Error(
+      "useChatDataContext must be used within a UserChatProvider."
+    );
   }
   return context;
 };

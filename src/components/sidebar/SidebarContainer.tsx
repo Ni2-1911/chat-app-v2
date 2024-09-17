@@ -4,7 +4,6 @@ import SearchBar from "./search/SearchBar";
 import ContactList from "./contact/ContactList";
 import AddConversation from "./addConversation/AddConversation";
 import { ConnectionProvider } from "../../contexts/ConnectionContext";
-import { UserChatProvider } from "../../contexts/UserChatContext";
 
 export default function SidebarContainer() {
   return (
@@ -12,10 +11,8 @@ export default function SidebarContainer() {
       <SidebarHeader />
       <SearchBar />
       <ConnectionProvider>
-        <UserChatProvider>
-          <ContactList />
-          <AddConversation />
-        </UserChatProvider>
+        <ContactList />
+        <AddConversation />
       </ConnectionProvider>
     </div>
   );

@@ -7,18 +7,16 @@ import { useChatDataContext } from "../../../contexts/UserChatContext";
 import { useConnectionContext } from "../../../contexts/ConnectionContext";
 import DropdownMenu from "../../common/DropdownMenu";
 import ViewModeWrapper from "../../common/ViewModeWrapper";
+import { getTimeFormat } from "../../../utils/utils.common";
 
 export default function ContactItem(contact: { info: Contact }) {
   const [isOpen, setIsOpen] = useState(false);
   const { handleContactSelected } = useSelectedContactContext();
   const { deleteConnection } = useConnectionContext();
   const { deleteChat, latestChatData } = useChatDataContext();
-  function openDialog() {
-    setIsOpen(true);
-  }
-  function closeDialog() {
-    setIsOpen(false);
-  }
+  const latestMessageTime = latestChatData[contact.info.id]?.time;
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
   function action() {
     deleteChat(contact.info.id);
     deleteConnection(contact.info.id);
@@ -52,14 +50,19 @@ export default function ContactItem(contact: { info: Contact }) {
             </li>
           </DropdownMenu>
           <ViewModeWrapper>
-            <p className="text-sm text-800">10:10</p>
+            <p className="text-sm text-800">
+              {latestMessageTime === undefined
+                ? null
+                : getTimeFormat(new Date(latestMessageTime))}
+            </p>
           </ViewModeWrapper>
         </div>
       </div>
       <DialogBox
         isOpen={isOpen}
         closeDialog={closeDialog}
-        action={action}
+        actionType="deleteChat"
+        dialogAction={action}
         viewData={DIALOG_BOX_DATA.deleteConversation}
       />
     </>

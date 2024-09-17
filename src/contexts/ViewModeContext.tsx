@@ -23,7 +23,9 @@ export const ViewModeProvider: FC<{ children: ReactNode }> = ({ children }) => {
 export const useViewModeContext = () => {
   const context = useContext(ViewModeContext);
   if (context === undefined) {
-    throw new Error("error");
+    throw new Error(
+      "useViewModeContext must be used within a ViewModeProvider."
+    );
   }
   return context;
 };

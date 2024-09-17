@@ -154,6 +154,10 @@ dialog {
   justify-content: flex-end;
   width: 29rem;
 }
+.dialogBoxHead {
+  background-color: var(--slate-300);
+  width: 95%;
+}
 /* DEBUG STYLE */
 .dbg {
   border: 2px solid grey;

@@ -5,12 +5,8 @@ import { DIALOG_BOX_DATA } from "../../../constants/constant.common";
 export default function AddConversation() {
   const [isOpen, setIsOpen] = useState(false);
   const { addConnection } = useConnectionContext();
-  function openDialog() {
-    setIsOpen(true);
-  }
-  function closeDialog() {
-    setIsOpen(false);
-  }
+  const openDialog = () => setIsOpen(true);
+  const closeDialog = () => setIsOpen(false);
   function handleAddConnection(name: string) {
     addConnection(name);
   }
@@ -25,7 +21,8 @@ export default function AddConversation() {
       <DialogBox
         isOpen={isOpen}
         closeDialog={closeDialog}
-        action={handleAddConnection}
+        actionType="addUser"
+        dialogAction={handleAddConnection}
         viewData={DIALOG_BOX_DATA.newConversation}
       />
     </>

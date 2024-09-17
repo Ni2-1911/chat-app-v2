@@ -24,7 +24,9 @@ export const SelectedContactProvider: FC<{ children: ReactNode }> = ({
 export const useSelectedContactContext = () => {
   const context = useContext(SelectedContactContext);
   if (context === undefined) {
-    throw new Error("error");
+    throw new Error(
+      "useSelectedContactContext must be used within a SelectedContactProvider."
+    );
   }
   return context;
 };

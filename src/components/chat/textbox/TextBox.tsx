@@ -1,13 +1,20 @@
 import { useRef, KeyboardEvent } from "react";
 import { ContactSelected } from "../../../types/type.common";
 import { useChatDataContext } from "../../../contexts/UserChatContext";
-export default function TextBox({ contactInfo }: { contactInfo: ContactSelected }) {
+export default function TextBox({
+  contactInfo,
+}: {
+  contactInfo: ContactSelected;
+}) {
   const { addMessage } = useChatDataContext();
   const latestMessageRef = useRef<HTMLInputElement>(null);
   const sendMessageRef = useRef<HTMLDivElement>(null);
 
   function handleSendLatestMessage() {
-    if (latestMessageRef.current != null && latestMessageRef.current.value != "") {
+    if (
+      latestMessageRef.current != null &&
+      latestMessageRef.current.value != ""
+    ) {
       addMessage(latestMessageRef.current.value, contactInfo);
       latestMessageRef.current.value = "";
     }
@@ -20,7 +27,7 @@ export default function TextBox({ contactInfo }: { contactInfo: ContactSelected 
   }
   return (
     <div className="textBox flex-center" key={contactInfo?.id}>
-      <i className='bx bx-paperclip bx-sm p-3' ></i>
+      <i className="bx bx-paperclip bx-sm p-3"></i>
       <input
         className="p-3 rounded-sm w-90"
         type="text"
@@ -33,7 +40,7 @@ export default function TextBox({ contactInfo }: { contactInfo: ContactSelected 
         ref={sendMessageRef}
         onClick={handleSendLatestMessage}
       >
-        <i className='bx bxs-send bx-sm' ></i>
+        <i className="bx bxs-send bx-sm"></i>
       </div>
     </div>
   );

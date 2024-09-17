@@ -52,7 +52,9 @@ export const ConnectionProvider: FC<{ children: ReactNode }> = ({
 export const useConnectionContext = () => {
   const context = useContext(ConnectionContext);
   if (context === undefined) {
-    throw new Error("error");
+    throw new Error(
+      "useConnectionContext must be used within a ConnectionProvider."
+    );
   }
   return context;
 };

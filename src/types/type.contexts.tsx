@@ -1,7 +1,6 @@
 import {
   Contact,
   ContactSelected,
-  HandleDeleteMessage,
   LatestMessage,
   UserChatData,
   UserIdKey,
@@ -16,8 +15,8 @@ export type ConnectionContextType = {
 export type UserChatContextType = {
   userChatData: UserChatData;
   addMessage: (messsage: string, contactInfo: ContactSelected) => void;
-  deleteMessage: HandleDeleteMessage;
-  deleteChat: (userId: any) => void;
+  deleteMessage: (userId: UserIdKey, messageKey: string) => void;
+  deleteChat: (userId: UserIdKey) => void;
   editMessage: (message: string, userId: UserIdKey, messageKey: string) => void;
   latestChatData: LatestMessage;
 };

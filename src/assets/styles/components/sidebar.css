@@ -24,7 +24,7 @@
   background-color: var(--slate-300);
 }
 .toggleModeBtn {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .ellipsis-3-lines {
   -webkit-box-orient: vertical;

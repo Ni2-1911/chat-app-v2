@@ -6,9 +6,7 @@ export const USER_CHAT_DATA: UserChatData = {
   id: "user_id_0",
   name: "Fujizumi Hokusaburo",
   profileImg: "https://cdn-icons-png.freepik.com/512/147/147137.png",
-  chatData: {
-    user_id_1: [],
-  },
+  chatData: {},
 };
 export const DIALOG_BOX_DATA = {
   newConversation: {

@@ -4,7 +4,7 @@ import DefaultMessage from "./message/DefaultMessage";
 import SentMessage from "./message/SentMessage";
 import { useRef, useEffect } from "react";
 export default function ChatBox({ userId }: { userId: UserIdKey }) {
-  const { userChatData, deleteMessage } = useChatDataContext();
+  const { userChatData } = useChatDataContext();
   const conversation = userChatData.chatData[userId];
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -28,7 +28,6 @@ export default function ChatBox({ userId }: { userId: UserIdKey }) {
                 time={message.time}
                 userId={userId}
                 messageKey={message.id}
-                deleteMessage={deleteMessage}
               />
             );
           })}

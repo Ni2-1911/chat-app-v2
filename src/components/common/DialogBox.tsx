@@ -1,16 +1,13 @@
 import { useEffect, useRef } from "react";
+import { DialogBoxProp } from "../../types/type.props";
 
 export default function DialogBox({
   isOpen,
   closeDialog,
-  action,
+  dialogAction,
+  actionType,
   viewData,
-}: {
-  isOpen: boolean;
-  closeDialog: Function;
-  action: Function;
-  viewData: { inputData: string; buttonData: string };
-}) {
+}: DialogBoxProp) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -21,19 +18,30 @@ export default function DialogBox({
     }
   }, [isOpen]);
   function handleAction() {
-    action(inputRef.current?.value);
+    const inputValue = inputRef.current?.value.trim() || "";
+    if (["editMessage", "addUser"].includes(actionType) && inputValue !== "") {
+      dialogAction(inputValue);
+    } else {
+      dialogAction();
+    }
     closeDialog();
-    if (inputRef.current != null) inputRef.current.value = "";
+    if (inputRef.current) inputRef.current.value = "";
   }
   return (
     <dialog ref={dialogRef}>
       <div className="flex-center flex-col h-100">
-        <input
-          ref={inputRef}
-          className="dialog-input rounded-sm p-2"
-          type="text"
-          placeholder={viewData.inputData}
-        />
+        {actionType === "editMessage" || actionType === "addUser" ? (
+          <input
+            ref={inputRef}
+            className="dialog-input rounded-sm p-2"
+            type="text"
+            placeholder={viewData.inputData}
+          />
+        ) : (
+          <div className="dialog-input rounded-sm p-2">
+            {viewData.inputData}
+          </div>
+        )}
         <div className="dialogHead p-2">
           <button
             className="btn-primary btn-dialog rounded-sm"

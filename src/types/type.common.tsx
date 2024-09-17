@@ -16,12 +16,4 @@ export type LatestMessage = {
   [key in UserIdKey]: Message;
 };
 export type ContactSelected = Contact | null;
-export type HandleContactSelected = {
-  handleContactSelected: (contact: Contact) => void;
-};
-export type HandleDeleteMessage = (
-  userId: UserIdKey,
-  messageKey: string
-) => void;
-export type HandleAddMessage = (messsage: string) => void;
 export type ViewMode = "compact" | "spacious";
