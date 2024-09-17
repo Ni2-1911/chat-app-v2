@@ -1,0 +1,10 @@
+@media only screen and (max-width: 800px) {
+  .chatApp {
+    overflow: auto;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  .latestMessage {
+    width: 10rem;
+  }
+}
